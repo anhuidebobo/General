@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using General.Entities;
+using General.Services.Categorys;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -31,8 +34,21 @@ namespace General.Mvc
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            #region 数据库连接  ORM
+            services.AddDbContextPool<GeneralDbContext>(options => options
+            .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            #endregion
+
+            #region 开启认证
+            services.AddAuthentication();
+            #endregion
+
+            #region 依赖注入
+            services.AddScoped<ICategoryService, CatergoyService>();
+            #endregion
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,6 +67,10 @@ namespace General.Mvc
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+
+            #region 开启认证
+            app.UseAuthentication();
+            #endregion
 
             app.UseMvc(routes =>
             {

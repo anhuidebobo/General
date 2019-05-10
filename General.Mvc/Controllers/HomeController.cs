@@ -5,14 +5,22 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using General.Mvc.Models;
+using General.Entities;
+using General.Services.Categorys;
 
 namespace General.Mvc.Controllers
 {
     public class HomeController : Controller
     {
+        private ICategoryService _categoryService;
+        public HomeController(ICategoryService categoryService)
+        {
+            _categoryService = categoryService;
+        }
         public IActionResult Index()
         {
-            return View();
+            var list = _categoryService.getAll();
+            return Content(list.ToString());
         }
 
         public IActionResult About()
