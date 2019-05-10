@@ -5,8 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace General.Entities.Categorys
+namespace General.Entities
 {
+    /// <summary>
+    /// 类名称：Category
+    /// 命名空间：General.Entities.Categorys
+    /// 类功能：菜单表
+    /// </summary>
+    /// 创建者：libb
+    /// 创建日期：2019/5/10 9:46
+    /// 修改者：
+    /// 修改时间：
+    /// -----------------------------------------------------------
     [Table("Category")]
     public class Category
     {

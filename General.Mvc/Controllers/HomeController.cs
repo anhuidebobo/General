@@ -7,20 +7,25 @@ using Microsoft.AspNetCore.Mvc;
 using General.Mvc.Models;
 using General.Entities;
 using General.Services.Categorys;
+using General.Core;
 
 namespace General.Mvc.Controllers
 {
     public class HomeController : Controller
     {
-        private ICategoryService _categoryService;
-        public HomeController(ICategoryService categoryService)
-        {
-            _categoryService = categoryService;
-        }
+        //private ICategoryService _categoryService;
+        //public HomeController(ICategoryService categoryService)
+        //{
+        //    _categoryService = categoryService;
+        //}
         public IActionResult Index()
         {
-            var list = _categoryService.getAll();
-            return Content(list.ToString());
+            var categoryService = EngineContext.Current.Resolve<ICategoryService>();
+
+            //var list = _categoryService.getAll();
+            //return Content(list.ToString());
+            var list = categoryService.getAll();
+            return Content(categoryService.ToString());
         }
 
         public IActionResult About()

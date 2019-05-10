@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using General.Core;
 using General.Entities;
 using General.Services.Categorys;
 using Microsoft.AspNetCore.Builder;
@@ -37,7 +38,7 @@ namespace General.Mvc
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             #region 数据库连接  ORM
-            services.AddDbContextPool<GeneralDbContext>(options => options
+            services.AddDbContext<GeneralDbContext>(options => options
             .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             #endregion
 
@@ -46,9 +47,20 @@ namespace General.Mvc
             #endregion
 
             #region 依赖注入
+
             services.AddScoped<ICategoryService, CatergoyService>();
+
+            //泛型注入到DI中
+            services.AddScoped(typeof(IRepository<>), typeof(EFRepository<>));
+
             #endregion
 
+
+            //services.BuildServiceProvider().GetService<ICategoryService>();
+
+            EngineContext.Initial(new GeneralEngine(services.BuildServiceProvider()));
+            //services.AddScoped<IServiceProvider, ServiceProvider>();
+            //services.AddScoped<IEngine, GeneralEngine>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,4 +1,4 @@
-﻿using General.Entities.Categorys;
+﻿using General.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
