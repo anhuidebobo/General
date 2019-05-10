@@ -7,7 +7,6 @@ namespace General.Mvc.Models
         public string RequestId { get; set; } 
 
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
-
-        public int Show { get; set; }
+        
     }
 }
