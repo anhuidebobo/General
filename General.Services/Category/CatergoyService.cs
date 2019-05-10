@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using General.Core;
 using General.Entities;
 
-namespace General.Services.Categorys
+namespace General.Services
 {
-    public class CatergoyService : ICategoryService
+    public class CatergoyService : ICategoryService, IClone
     {
         //private GeneralDbContext _generalDbContext;  
         //public CatergoyService(GeneralDbContext generalDbContext)

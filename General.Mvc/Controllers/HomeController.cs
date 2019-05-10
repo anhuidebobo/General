@@ -6,24 +6,27 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using General.Mvc.Models;
 using General.Entities;
-using General.Services.Categorys;
 using General.Core;
+using General.Services;
 
 namespace General.Mvc.Controllers
 {
     public class HomeController : Controller
     {
-        //private ICategoryService _categoryService;
-        //public HomeController(ICategoryService categoryService)
-        //{
-        //    _categoryService = categoryService;
-        //}
+        private IRepository<Category> _categoryRepository;
+        private IRepository<SysUser> _sysUserRepository;
+        public HomeController(IRepository<Category> categoryRepository,
+         IRepository<SysUser> sysUserRepository)
+        {
+            _categoryRepository = categoryRepository;
+            _sysUserRepository = sysUserRepository;
+        }
         public IActionResult Index()
         {
+            bool result = Object.ReferenceEquals(_categoryRepository.DbContext, _sysUserRepository.DbContext);
+
             var categoryService = EngineContext.Current.Resolve<ICategoryService>();
 
-            //var list = _categoryService.getAll();
-            //return Content(list.ToString());
             var list = categoryService.getAll();
             return Content(categoryService.ToString());
         }

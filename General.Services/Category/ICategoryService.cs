@@ -5,10 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace General.Services.Categorys
+namespace General.Services
 {
     public interface ICategoryService
     {
         List<Category> getAll();
     }
+
+    public interface IClone { }
 }

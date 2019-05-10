@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using General.Core;
 using General.Entities;
-using General.Services.Categorys;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -48,7 +47,8 @@ namespace General.Mvc
 
             #region 依赖注入
 
-            services.AddScoped<ICategoryService, CatergoyService>();
+            //services.AddScoped<ICategoryService, CatergoyService>();
+            services.AddAssembly("General.Services");
 
             //泛型注入到DI中
             services.AddScoped(typeof(IRepository<>), typeof(EFRepository<>));
