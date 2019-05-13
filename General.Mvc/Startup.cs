@@ -45,10 +45,16 @@ namespace General.Mvc
             #endregion
 
             #region 开启认证
-            services.AddAuthentication("General").AddCookie(o =>
+            services.AddAuthentication(o =>
             {
-                o.LoginPath = "";
-            });
+                o.DefaultAuthenticateScheme = "General";
+                o.DefaultChallengeScheme = "General";
+                o.DefaultSignInScheme = "General";
+                o.DefaultSignOutScheme = "General";
+            }).AddCookie("General", o =>
+              {
+                  o.LoginPath = "/admin/login";
+              });
             #endregion
 
             #region 依赖注入 
@@ -61,7 +67,9 @@ namespace General.Mvc
 
             services.AddScoped<IWorkContext, WorkContext>();
 
-            services.AddScoped<IAuthenticationService, AuthenticationService>();
+            services.AddScoped<IAdminAuthService, AdminAuthService>();
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             #endregion
 

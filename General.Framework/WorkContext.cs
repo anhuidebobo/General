@@ -11,8 +11,8 @@ namespace General.Framework
 {
     public class WorkContext : IWorkContext
     {
-        private IAuthenticationService _authenticationService;
-        public WorkContext(IAuthenticationService AuthenticationService)
+        private IAdminAuthService _authenticationService;
+        public WorkContext(IAdminAuthService AuthenticationService)
         {
             this._authenticationService = AuthenticationService;
         }
