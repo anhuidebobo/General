@@ -4,6 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using General.Core;
 using General.Entities;
+using General.Framework;
+using General.Framework.Infrastructure;
+using General.Framework.Security.Admin;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -55,6 +58,10 @@ namespace General.Mvc
 
             //泛型注入到DI中
             services.AddScoped(typeof(IRepository<>), typeof(EFRepository<>));
+
+            services.AddScoped<IWorkContext, WorkContext>();
+
+            services.AddScoped<IAuthenticationService, AuthenticationService>();
 
             #endregion
 

@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using General.Framework.Admin.Controllers;
 using Microsoft.AspNetCore.Mvc;
 
-namespace General.Mvc.Areas.Admin.Controllers
+namespace General.Mvc.Controllers
 {
-    public class MainController : PublicAdminController
+    [Route("login")]
+    public class LoginController : Controller
     {
+        [Route("")]
         public IActionResult Index()
         {
-            var user = WorkContext.CurrentUser;
-
             return View();
         }
     }

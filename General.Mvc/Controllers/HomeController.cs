@@ -26,10 +26,11 @@ namespace General.Mvc.Controllers
         {
             //bool result = Object.ReferenceEquals(_categoryRepository.DbContext, _sysUserRepository.DbContext);
 
-            var categoryService = EngineContext.Current.Resolve<ICategoryService>();
+            //var categoryService = EngineContext.Current.Resolve<ICategoryService>();
 
-            var list = categoryService.getAll();
-            return Content(categoryService.ToString());
+            //var list = categoryService.getAll();
+            //return Content(categoryService.ToString());
+            return View();
         }
 
         public IActionResult About()
