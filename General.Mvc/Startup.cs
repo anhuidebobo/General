@@ -42,10 +42,13 @@ namespace General.Mvc
             #endregion
 
             #region 开启认证
-            services.AddAuthentication();
+            services.AddAuthentication("General").AddCookie(o =>
+            {
+                o.LoginPath = "";
+            });
             #endregion
 
-            #region 依赖注入
+            #region 依赖注入 
 
             //services.AddScoped<ICategoryService, CatergoyService>();
             services.AddAssembly("General.Services");
@@ -89,6 +92,14 @@ namespace General.Mvc
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+            });
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                  name: "areas",
+                  template: "{area:exists}/{controller=Login}/{action=Index}/{id?}"
+                );
             });
         }
     }

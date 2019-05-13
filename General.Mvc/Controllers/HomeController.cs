@@ -8,22 +8,23 @@ using General.Mvc.Models;
 using General.Entities;
 using General.Core;
 using General.Services;
+using General.Framework.Controllers;
 
 namespace General.Mvc.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        private IRepository<Category> _categoryRepository;
-        private IRepository<SysUser> _sysUserRepository;
-        public HomeController(IRepository<Category> categoryRepository,
-         IRepository<SysUser> sysUserRepository)
-        {
-            _categoryRepository = categoryRepository;
-            _sysUserRepository = sysUserRepository;
-        }
+        //private IRepository<Category> _categoryRepository;
+        //private IRepository<SysUser> _sysUserRepository;
+        //public HomeController(IRepository<Category> categoryRepository,
+        // IRepository<SysUser> sysUserRepository)
+        //{
+        //    _categoryRepository = categoryRepository;
+        //    _sysUserRepository = sysUserRepository;
+        //}
         public IActionResult Index()
         {
-            bool result = Object.ReferenceEquals(_categoryRepository.DbContext, _sysUserRepository.DbContext);
+            //bool result = Object.ReferenceEquals(_categoryRepository.DbContext, _sysUserRepository.DbContext);
 
             var categoryService = EngineContext.Current.Resolve<ICategoryService>();
 
