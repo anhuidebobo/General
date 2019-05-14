@@ -76,6 +76,8 @@ namespace General.Mvc
 
             #endregion
 
+            services.AddSession();
+
 
             //services.BuildServiceProvider().GetService<ICategoryService>();
 
@@ -104,6 +106,7 @@ namespace General.Mvc
             #region 开启认证
             app.UseAuthentication();
             #endregion
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

@@ -42,8 +42,8 @@
                                         </h4>
 
                                         <div class="space-6"></div>
-                                        <form asp-route="adminLogin"  method="post">
-                                            @*<input type="hidden" id="r_random" value="@Model.R" />*@
+                                        <form asp-route="adminLogin" method="post">
+                                            <input type="hidden" id="r_random" value="@Model.R" />
                                             <fieldset>
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
@@ -66,7 +66,7 @@
                                                         <input type="checkbox" id="RememberMe" name="RememberMe" value="true" class="ace" />
                                                         <span class="lbl"> 记住我</span>
                                                     </label>
-                                                    <button type="submit" id="myButton" data-loading-text="登录中..." class="width-35 pull-right btn btn-sm btn-primary">
+                                                    <button type="button" id="myButton" data-loading-text="登录中..." class="width-35 pull-right btn btn-sm btn-primary">
                                                         <i class="ace-icon fa fa-key"></i>
                                                         <span class="bigger-110">登录</span>
                                                     </button>
@@ -78,7 +78,7 @@
                                             <span class="bigger-110">登 录 提 示</span>
                                         </div>
                                         <div class="social-login">
-                                            <p id="error_msg">登录密码错误过多账号将被锁定</p>
+                                            <p class="center red" id="error_msg"></p>
                                         </div>
                                         <div class="space-6"></div>
 
@@ -101,7 +101,7 @@
     <script src="~/js/jquery.md5.js"></script>
     <script>
         $(function () {
-            @*$('#myButton').click(function () {
+            $('#myButton').click(function () {
                 if ($('form').valid()) {
                     var account = $('#Account').val();
                     var password = $('#Password').val();
@@ -116,11 +116,13 @@
                             } else {
                                 $('#error_msg').html(data.message);
                             }
-                         })
+                        })
 
                     });
+                } else {
+                    $('#error_msg').html("用户名、密码不能为空！");
                 }
-            });*@
+            });
 
         });
     </script>

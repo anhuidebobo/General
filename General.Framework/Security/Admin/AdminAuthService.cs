@@ -30,7 +30,7 @@ namespace General.Framework.Security.Admin
             if (result.Principal == null)
                 return null;
             var token = result.Principal.FindFirstValue(ClaimTypes.Sid);
-            return _sysUserService.GetLogged(token);
+            return _sysUserService.GetLogged(token ?? "");
         }
 
         public void SingIn(string token, string name)
@@ -40,6 +40,11 @@ namespace General.Framework.Security.Admin
             claimsIdentity.AddClaim(new Claim(ClaimTypes.Name, name));
             ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
             _httpContextAccessor.HttpContext.SignInAsync(CookieAdminAuthInfo.AuthenticationScheme, claimsPrincipal);
+        }
+
+        public void SignOut()
+        {
+            _httpContextAccessor.HttpContext.SignOutAsync(CookieAdminAuthInfo.AuthenticationScheme);
         }
     }
 }

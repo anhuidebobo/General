@@ -12,5 +12,7 @@ namespace General.Framework.Security.Admin
         SysUser GetCurrentUser();
 
         void SingIn(string token, string name);
+
+        void SignOut();
     }
 }
