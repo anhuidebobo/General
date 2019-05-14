@@ -45,6 +45,7 @@ namespace General.Mvc.Areas.Admin.Controllers
             }
             var result = this._sysUserService.ValidUser(model.Account, model.Password, "");
             AjaxData.Status = result.Item1;
+            AjaxData.Message = result.Item2;
             if (result.Item1)
             {
                 _authenticationService.SingIn(result.Item3, result.Item4.Name);

@@ -13,5 +13,11 @@ namespace General.Entities
         }
 
         public DbSet<Category> Categories { get; set; }
+
+        public DbSet<SysUser> SysUsers { get;}
+
+        public DbSet<SysUserToken> SysUserTokens { get; set; }
+
+        public DbSet<SysUserLoginLog> SysUserLoginLogs { get; set; }
     }
 }

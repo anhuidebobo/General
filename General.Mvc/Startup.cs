@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -47,11 +48,11 @@ namespace General.Mvc
             #region 开启认证
             services.AddAuthentication(o =>
             {
-                o.DefaultAuthenticateScheme = "General";
-                o.DefaultChallengeScheme = "General";
-                o.DefaultSignInScheme = "General";
-                o.DefaultSignOutScheme = "General";
-            }).AddCookie("General", o =>
+                o.DefaultAuthenticateScheme = CookieAdminAuthInfo.AuthenticationScheme;
+                o.DefaultChallengeScheme = CookieAdminAuthInfo.AuthenticationScheme;
+                o.DefaultSignInScheme = CookieAdminAuthInfo.AuthenticationScheme;
+                o.DefaultSignOutScheme = CookieAdminAuthInfo.AuthenticationScheme;
+            }).AddCookie(CookieAdminAuthInfo.AuthenticationScheme, o =>
               {
                   o.LoginPath = "/admin/login";
               });
@@ -70,6 +71,8 @@ namespace General.Mvc
             services.AddScoped<IAdminAuthService, AdminAuthService>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddSingleton<IMemoryCache, MemoryCache>();
 
             #endregion
 

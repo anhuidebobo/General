@@ -23,6 +23,10 @@ namespace General.Services.SysUser
         /// 修改时间：
         /// -----------------------------------------------------------
         //ValueTuple<bool, string, Entities.SysUser> ValidUser(string account, string password, string r);
-        (bool, string,string, Entities.SysUser) ValidUser(string account, string password, string r);
+        (bool Status, string Message,string Token, Entities.SysUser User) ValidUser(string account, string password, string r);
+
+        Entities.SysUser GetByAccount(string account);
+
+        Entities.SysUser GetLogged(string token);
     }
 }
