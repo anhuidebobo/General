@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace General.Framework.Admin.Controllers
 {
     [PermissionActionFilter]
-    public class AdminPermissionController:AdminAreaController
+    public class AdminPermissionController: PublicAdminController
     {
         
     }

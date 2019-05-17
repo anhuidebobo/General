@@ -130,5 +130,134 @@ namespace General.Services.SysUser
 
             return (false, "用户名或密码错误！", null, null);
         }
+
+        /// <summary>
+        /// 搜索数据
+        /// </summary>
+        /// <param name="arg"></param>
+        /// <param name="page"></param>
+        /// <param name="size"></param>
+        /// <returns></returns>
+        public IPagedList<Entities.SysUser> searchUser(SysUserSearchArg arg, int page, int size)
+        {
+            var query = _repository.Table.Where(o => !o.IsDeleted);
+            if (arg != null)
+            {
+                if (!String.IsNullOrEmpty(arg.q))
+                    query = query.Where(o => o.Account.Contains(arg.q) || o.MobilePhone.Contains(arg.q) || o.Email.Contains(arg.q) || o.Name.Contains(arg.q));
+                if (arg.enabled.HasValue)
+                    query = query.Where(o => o.Enabled == arg.enabled);
+                if (arg.unlock.HasValue)
+                    query = query.Where(o => o.LoginLock == arg.unlock);
+                if (arg.roleId.HasValue)
+                    query = query.Where(o => o.SysUserRoles.Any(r => r.RoleId == arg.roleId));
+            }
+            query = query.OrderBy(o => o.Account).ThenBy(o => o.Name).ThenByDescending(o => o.CreationTime);
+            return new PagedList<Entities.SysUser>(query, page, size);
+        }
+
+        /// <summary>
+        /// 获取用户详情
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Entities.SysUser getById(Guid id)
+        {
+            return _repository.GetEntityById(id);
+        }
+
+        /// <summary>
+        /// 新增，插入
+        /// </summary>
+        /// <param name="model"></param>
+        public void insertSysUser(Entities.SysUser model)
+        {
+            if (existAccount(model.Account))
+                return;
+            _repository.Insert(model);
+        }
+
+        /// <summary>
+        /// 更新修改
+        /// </summary>
+        /// <param name="model"></param>
+        void updateSysUser(Entities.SysUser model)
+        {
+            _repository.DbContext.Entry(model).State = EntityState.Unchanged;
+            _repository.DbContext.Entry(model).Property("Name").IsModified = true;
+            _repository.DbContext.Entry(model).Property("Email").IsModified = true;
+            _repository.DbContext.Entry(model).Property("MobilePhone").IsModified = true;
+            _repository.DbContext.Entry(model).Property("Sex").IsModified = true;
+            _repository.DbContext.SaveChanges();
+        }
+
+        /// <summary>
+        /// 重置密码。默认重置成账号一样
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="modifer"></param>
+        public void resetPassword(Guid id, Guid modifer)
+        {
+
+        }
+
+        /// <summary>
+        /// 验证账号是否已经存在
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="account"></param>
+        /// <returns></returns>
+        public bool existAccount(string account)
+        {
+            return _repository.Table.Any(o => o.Account == account && !o.IsDeleted);
+        }
+
+        void ISysUserService.updateSysUser(Entities.SysUser model)
+        {
+            _repository.Update(model);
+        }
+
+        public void enabled(Guid id, bool enabled, Guid modifer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void loginLock(Guid id, bool ulock, Guid modifer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void deleteUser(Guid id, Guid modifer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void addAvatar(Guid id, byte[] avatar)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void changePassword(Guid id, string password)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void lastActivityTime(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 移除缓存用户
+        /// </summary>
+        /// <param name="userId"></param>
+        private void removeCacheUser(Guid userId)
+        {
+            _memoryCache.Remove(String.Format(MODEL_KEY, userId));
+        }
+
+
+
+
     }
 }

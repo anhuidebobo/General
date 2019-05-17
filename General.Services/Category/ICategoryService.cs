@@ -9,7 +9,8 @@ namespace General.Services
 {
     public interface ICategoryService
     {
-        List<Category> getAll();
+        List<Category> GetAll();
+        void InitCategory(List<Category> list);
     }
 
     public interface IClone { }

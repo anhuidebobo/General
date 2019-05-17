@@ -19,6 +19,10 @@ namespace General.Mvc
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+            .UseIISIntegration()
+            .UseKestrel()
+            .UseContentRoot(Directory.GetCurrentDirectory())
+            //.UseApplicationInsights()
                 .UseStartup<Startup>();
     }
 }

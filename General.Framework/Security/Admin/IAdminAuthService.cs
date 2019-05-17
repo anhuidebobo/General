@@ -1,4 +1,5 @@
 ﻿using General.Entities;
+using Microsoft.AspNetCore.Mvc.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,14 @@ namespace General.Framework.Security.Admin
     {
         SysUser GetCurrentUser();
 
+        List<Category> GetMyCategories();
+
         void SingIn(string token, string name);
 
         void SignOut();
+
+        bool authorize(ActionExecutingContext context);
+
+        bool authorize(string routeName);
     }
 }

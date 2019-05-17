@@ -1,5 +1,6 @@
 ﻿using General.Entities;
 using General.Framework.Infrastructure;
+using General.Framework.Menu;
 using General.Framework.Security.Admin;
 using System;
 using System.Collections.Generic;
@@ -16,11 +17,19 @@ namespace General.Framework
         {
             this._authenticationService = AuthenticationService;
         }
-        public SysUser CurrentUser
+        public  SysUser CurrentUser
         {
             get
             {
                 return _authenticationService.GetCurrentUser();
+            }
+        }
+
+        public List<Category> Categories
+        {
+            get
+            {
+                return _authenticationService.GetMyCategories();
             }
         }
     }

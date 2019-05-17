@@ -20,8 +20,7 @@ namespace General.Mvc.Areas.Admin.Controllers
         public IActionResult Index()
         {
             //var user = WorkContext.CurrentUser;
-            _adminAuthService.GetCurrentUser();
-
+            //_adminAuthService.GetCurrentUser();
             return View();
         }
         [Route("out", Name = "signOut")]

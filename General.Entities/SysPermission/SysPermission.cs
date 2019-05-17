@@ -21,7 +21,7 @@ namespace General.Entities
     {
         public Guid Id { get; set; }
 
-        public int CategoryId { get; set; }
+        public Guid CategoryId { get; set; }
 
         public Guid RoleId { get; set; }
 

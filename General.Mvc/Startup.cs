@@ -6,6 +6,7 @@ using General.Core;
 using General.Entities;
 using General.Framework;
 using General.Framework.Infrastructure;
+using General.Framework.Menu.Register;
 using General.Framework.Security.Admin;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,7 +35,7 @@ namespace General.Mvc
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
+                options.CheckConsentNeeded = context => false; //这里要改为false，默认是true，true的时候session无效
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
@@ -42,7 +43,13 @@ namespace General.Mvc
 
             #region 数据库连接  ORM
             services.AddDbContext<GeneralDbContext>(options => options
-            .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.UseRowNumberForPaging())
+            );
+
+            //            var connection = @"Data Source=tcp:111.111.111.111,1044;
+            //Initial Catalog=xxx;Persist Security Info=True;User ID=xxxx;Password=xxxxx";
+            //            services.AddDbContext<NoteContext>(options => options.UseSqlServer(connection, b => b.UseRowNumberForPaging()));
+
             #endregion
 
             #region 开启认证
@@ -73,6 +80,8 @@ namespace General.Mvc
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddSingleton<IMemoryCache, MemoryCache>();
+
+            services.AddScoped<IRegisterApplicationService, RegisterApplicationService>();
 
             #endregion
 
@@ -122,6 +131,9 @@ namespace General.Mvc
                   template: "{area:exists}/{controller=Login}/{action=Index}/{id?}"
                 );
             });
+
+            //初始化菜单
+            EngineContext.Current.Resolve<IRegisterApplicationService>().InitRegister();
         }
     }
 }

@@ -59,11 +59,7 @@ namespace General.Entities
 
         public string Salt { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [StringLength(2)]
-        public string Sex { get; set; }
+        public bool Sex { get; set; }
 
         public bool Enabled { get; set; }
 

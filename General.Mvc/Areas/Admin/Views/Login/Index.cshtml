@@ -27,7 +27,7 @@
                                 <i class="ace-icon green"></i>
                                 <span class="white" id="id-text2"></span>
                             </h1>
-                            <h4 class="blue" id="id-company-text">&copy; </h4>
+                            <h4 class="blue" id="id-company-text">上海同是科技有限公司&copy; </h4>
                         </div>
 
                         <div class="space-6"></div>
@@ -109,6 +109,8 @@
                     $.get('@Url.RouteUrl("getSalt")?account=' + account, function (salt) {
                         password = $.md5(password + salt);
                         password = $.md5(password + r);
+                        alert(salt)
+                        alert(password);
                         $.post('@Url.RouteUrl("adminLogin")', { "Account": account, "Password": password }, function (data) {
                             if (data.status) {
                                 $('#error_msg').html('登陆成功，正在进入系统...');

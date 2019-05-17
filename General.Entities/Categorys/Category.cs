@@ -25,7 +25,7 @@ namespace General.Entities
             SysPermissions = new HashSet<SysPermission>();
         }
 
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public string Name { get; set; }
 
@@ -33,7 +33,7 @@ namespace General.Entities
 
         public string SysResource { get; set; }
 
-        public string ResouceID { get; set; }
+        public string ResourceID { get; set; }
 
         public string FatherResource { get; set; }
 
